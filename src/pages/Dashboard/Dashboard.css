@@ -1,0 +1,129 @@
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: #f5f7fb;
+}
+
+/* LAYOUT */
+.layout {
+  display: flex;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  background: white;
+  padding: 20px;
+  box-shadow: 2px 0 20px rgba(0,0,0,0.05);
+}
+
+.sidebar span {
+  color: #4facfe;
+}
+
+.menu {
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.menu:hover {
+  background: #f1f5f9;
+}
+
+.menu.active {
+  background: linear-gradient(135deg,#4facfe,#00f2fe);
+  color: white;
+}
+
+.logout {
+  margin-top: 30px;
+  color: red;
+}
+
+/* CONTENT */
+.content {
+  flex: 1;
+  padding: 25px;
+}
+
+/* HEADER */
+.header {
+  background: linear-gradient(135deg,#4facfe,#00f2fe);
+  color: white;
+  padding: 25px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.date {
+  background: white;
+  color: black;
+  padding: 8px 15px;
+  border-radius: 10px;
+}
+
+/* CARDS */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.card .icon {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.box {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+/* TABLE */
+table {
+  width: 100%;
+  margin-top: 10px;
+}
+
+td, th {
+  padding: 10px;
+  text-align: left;
+}
+
+.status {
+  background: #d1fae5;
+  color: green;
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-size: 12px;
+}
+
+/* PRODUCT */
+.product {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
