@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { FaBars, FaSearch, FaUser, FaCog, FaSignOutAlt, FaChevronDown, FaBell, FaMoon, FaSun, FaWallet } from "react-icons/fa";
+import { FaBars, FaSearch, FaUser, FaCog, FaSignOutAlt, FaChevronDown, FaBell, FaMoon, FaSun, FaWallet, FaSync, FaCalendarAlt, FaCommentAlt, FaQuestionCircle } from "react-icons/fa";
 import { AppContext } from "../../context/AppContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +9,8 @@ const Navbar = ({ open, setOpen }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [time, setTime] = useState(new Date());
   const { darkMode, setDarkMode, balance } = useContext(AppContext);
+  const [activeIcon, setActiveIcon] = useState(null);
+  const [isSyncing, setIsSyncing] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,8 +39,12 @@ const Navbar = ({ open, setOpen }) => {
             placeholder="Cari apapun..." 
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="bg-slate-900/50 border border-white/10 rounded-full py-2 pl-10 pr-4 text-sm text-slate-200 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all w-64" 
+            className="bg-slate-900/50 border border-white/10 rounded-full py-2 pl-10 pr-12 text-sm text-slate-200 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all w-64" 
           />
+          <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1 px-1.5 py-0.5 rounded border border-white/10 bg-white/5 pointer-events-none">
+            <span className="text-[10px] text-slate-500 font-bold">⌘</span>
+            <span className="text-[10px] text-slate-500 font-bold">K</span>
+          </div>
           {searchQuery && (
             <div className="absolute top-full left-0 w-full mt-2 bg-slate-900 border border-white/10 rounded-xl shadow-2xl p-2 z-50">
               <p className="text-[10px] uppercase text-slate-500 font-bold px-2 py-1">Hasil Pencarian</p>
@@ -52,6 +58,41 @@ const Navbar = ({ open, setOpen }) => {
 
       <div className="flex items-center gap-6">
         {/* Clock & Greeting - Hidden on small mobile */}
+        {/* NEW: Navigation Shortcuts */}
+        <div className="hidden xl:flex items-center gap-2 bg-white/5 p-1.5 rounded-2xl border border-white/5">
+          <NavIcon 
+            icon={<FaCalendarAlt />} 
+            active={activeIcon === 'calendar'} 
+            onClick={() => setActiveIcon('calendar')} 
+            tooltip="Kalender"
+          />
+          <NavIcon 
+            icon={<FaCommentAlt />} 
+            active={activeIcon === 'chat'} 
+            onClick={() => setActiveIcon('chat')} 
+            tooltip="Pesan"
+          />
+          <NavIcon 
+            icon={<FaQuestionCircle />} 
+            active={activeIcon === 'support'} 
+            onClick={() => setActiveIcon('support')} 
+            tooltip="Bantuan"
+          />
+        </div>
+
+        {/* Sync Status */}
+        <motion.button 
+          whileTap={{ scale: 0.9 }}
+          onClick={() => {
+            setIsSyncing(true);
+            setTimeout(() => setIsSyncing(false), 2000);
+          }}
+          className={`relative p-2 rounded-lg transition-colors ${isSyncing ? 'bg-indigo-500/10 text-indigo-400' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}
+        >
+          <FaSync className={isSyncing ? 'animate-spin' : ''} size={18} />
+          {isSyncing && <span className="absolute -top-1 -right-1 w-2 h-2 bg-indigo-500 rounded-full"></span>}
+        </motion.button>
+
         <div className="hidden lg:flex flex-col items-end">
           <p className="text-xs font-bold text-cyan-400 tracking-wider uppercase">
             {time.toLocaleTimeString('id-ID', { hour12: false })}
@@ -150,6 +191,22 @@ const DropdownItem = ({ icon, label, onClick, isDanger }) => (
     <span className="text-sm">{icon}</span>
     <span className="text-sm font-medium">{label}</span>
   </div>
+);
+
+const NavIcon = ({ icon, active, onClick, tooltip }) => (
+  <motion.div 
+    whileHover={{ y: -2 }}
+    whileTap={{ scale: 0.9 }}
+    onClick={onClick}
+    className={`relative group cursor-pointer p-2.5 rounded-xl transition-all duration-300 ${
+      active ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/40' : 'text-slate-400 hover:text-white hover:bg-white/10'
+    }`}
+  >
+    <span className="text-sm md:text-base">{icon}</span>
+    <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-800 text-white text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded border border-white/10 pointer-events-none whitespace-nowrap z-50">
+      {tooltip}
+    </div>
+  </motion.div>
 );
 
 export default Navbar;

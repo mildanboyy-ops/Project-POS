@@ -23,20 +23,27 @@ const Landing = () => {
     <div className="animate-fade-in space-y-12 p-2 lg:p-4">
       {/* ═══════ HEADER ═══════ */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 md:gap-8">
-        <div className="space-y-2">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tighter leading-tight md:leading-none">
+        <div className="space-y-4">
+          <div className="flex items-center gap-3 bg-indigo-500/10 border border-indigo-500/20 px-4 py-2 rounded-2xl w-fit">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+            </span>
+            <p className="text-[10px] font-black text-indigo-400 uppercase tracking-[2px]">Sistem Aktif</p>
+          </div>
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white tracking-tighter leading-[0.9] md:leading-[0.85]">
             <ShinyText text="Kasirly" speed={3} /> <span className="text-indigo-500">Pro</span>
           </h1>
           <p className="text-slate-500 font-medium text-lg md:text-xl max-w-md tracking-tight">
-            Ringkasan performa bisnis Anda hari ini.
+            Selamat datang kembali, <span className="text-white">Admin</span>. Inilah performa bisnis Anda hari ini.
           </p>
         </div>
-        <div className="flex gap-4 w-full md:w-auto">
+        <div className="flex gap-4 w-full md:w-auto self-end">
           <button 
             onClick={() => navigate("/dashboard/penjualan")}
-            className="w-full md:w-auto px-8 md:px-10 py-4 md:py-5 bg-indigo-600 text-white font-black uppercase tracking-widest text-[10px] md:text-[11px] rounded-[24px] md:rounded-[32px] shadow-2xl shadow-indigo-600/30 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3"
+            className="w-full md:w-auto px-10 py-5 bg-white text-slate-950 font-black uppercase tracking-widest text-[11px] rounded-[32px] shadow-2xl shadow-white/10 hover:bg-indigo-500 hover:text-white transition-all duration-500 flex items-center justify-center gap-3 group"
           >
-            <FaShoppingCart /> Buka Kasir
+            <FaShoppingCart className="group-hover:rotate-12 transition-transform" /> Buka Kasir
           </button>
         </div>
       </div>
@@ -196,10 +203,11 @@ const StatWidget = ({ label, value, trend, color }) => {
   return (
     <SpotlightCard className="p-6 md:p-10 border-white/5 bg-white/[0.02] group">
       <p className="text-[9px] md:text-[10px] font-black text-slate-500 uppercase tracking-[2px] md:tracking-[3px] mb-6 md:mb-10 group-hover:text-white transition-colors">{label}</p>
-      <div className="space-y-2">
-        <div className="flex items-center gap-2">
+      <div className="space-y-3">
+        <h2 className={`text-3xl md:text-4xl font-black ${colorMap[color] || 'text-white'} tracking-tighter`}>{value}</h2>
+        <div className="flex items-center gap-2 bg-white/5 w-fit px-3 py-1 rounded-full border border-white/5">
           <FaArrowUp className="text-[8px] text-emerald-500" />
-          <span className="text-[10px] font-bold text-slate-500 tracking-tight">{trend}</span>
+          <span className="text-[9px] font-bold text-slate-400 tracking-tight uppercase">{trend}</span>
         </div>
       </div>
     </SpotlightCard>

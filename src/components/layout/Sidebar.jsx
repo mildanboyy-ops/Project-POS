@@ -85,20 +85,32 @@ const Sidebar = ({ open, setOpen }) => {
 
 const SidebarItem = ({ icon, label, active, onClick, isDanger }) => {
   return (
-    <div
+    <motion.div
       onClick={onClick}
-      className={`flex items-center gap-4 px-5 py-4 rounded-2xl cursor-pointer transition-all duration-300 group ${
+      whileTap={{ scale: 0.98 }}
+      className={`flex items-center gap-4 px-5 py-4 rounded-2xl cursor-pointer transition-all duration-500 group relative overflow-hidden ${
         active 
-          ? "bg-indigo-600 text-white shadow-xl shadow-indigo-600/20" 
+          ? "bg-indigo-600 text-white shadow-[0_10px_30px_rgba(79,70,229,0.4)]" 
           : isDanger
             ? "hover:bg-rose-500/10 text-rose-500"
             : "text-slate-500 hover:text-white hover:bg-white/5"
       }`}
     >
-      <span className={`text-xl transition-transform duration-300 group-hover:scale-110 ${active ? 'text-white' : ''}`}>{icon}</span>
-      <span className="font-bold text-sm tracking-tight">{label}</span>
-      {active && <motion.div layoutId="active" className="ml-auto w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_10px_white]" />}
-    </div>
+      {active && (
+        <motion.div 
+          layoutId="glow"
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full animate-[shimmer_2s_infinite]"
+        />
+      )}
+      <span className={`text-xl transition-transform duration-500 group-hover:scale-110 relative z-10 ${active ? 'text-white' : ''}`}>{icon}</span>
+      <span className="font-bold text-sm tracking-tight relative z-10">{label}</span>
+      {active && (
+        <motion.div 
+          layoutId="active-indicator" 
+          className="ml-auto w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_15px_white] relative z-10" 
+        />
+      )}
+    </motion.div>
   );
 };
 

@@ -30,14 +30,23 @@ const PublicLanding = () => {
           <div className="brand-logo">K</div>
           <h2>Kasir<span>ly</span></h2>
         </div>
-        <div className="nav-links hidden md:flex">
-          <a href="#features">Fitur</a>
-          <a href="#testimonials">Layanan</a>
-          <a href="#contact">Kontak</a>
+        <div className="nav-links hidden md:flex bg-white/5 border border-white/10 px-8 py-2 rounded-full">
+          {['Fitur', 'Layanan', 'Kontak'].map((link) => (
+            <a 
+              key={link}
+              href={`#${link.toLowerCase()}`}
+              className="px-4 py-2 text-sm font-bold text-slate-400 hover:text-white transition-all relative group"
+            >
+              {link}
+              <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-indigo-500 group-hover:w-full transition-all duration-300"></span>
+            </a>
+          ))}
         </div>
-        <button className="nav-login-btn" onClick={() => navigate("/login")}>
-          Masuk
-        </button>
+        <div className="flex items-center gap-4">
+          <button className="nav-login-btn px-8 py-3 bg-white text-slate-950 font-black rounded-full hover:bg-indigo-500 hover:text-white transition-all" onClick={() => navigate("/login")}>
+            Masuk
+          </button>
+        </div>
       </nav>
 
       {/* ═══════ HERO ═══════ */}
@@ -56,10 +65,6 @@ const PublicLanding = () => {
             <span className="text-[10px] font-black text-slate-400 uppercase tracking-[3px]">The Next Gen POS for UMKM</span>
           </motion.div>
 
-          <motion.h1 className="text-7xl md:text-9xl font-black text-white tracking-tighter leading-[0.9] mb-10" variants={fadeUp} custom={1}>
-            Business <br />
-            <ShinyText text="Simplified." speed={3} />
-          </motion.h1>
 
           <motion.p className="text-slate-500 max-w-2xl mx-auto text-xl font-medium tracking-tight mb-16" variants={fadeUp} custom={2}>
             Beralih dari pembukuan manual ke era digital. Pantau stok, analisis penjualan, dan kelola pelanggan dalam satu dashboard premium yang dirancang untuk kecepatan.
