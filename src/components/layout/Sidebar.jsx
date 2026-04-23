@@ -45,7 +45,7 @@ const Sidebar = ({ open, setOpen }) => {
 
   return (
     <motion.div
-      className="sidebar"
+      className={`sidebar ${open ? "open" : ""}`}
       initial={{ x: -280 }}
       animate={{ x: open ? 0 : -280 }}
       transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}

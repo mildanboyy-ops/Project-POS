@@ -410,19 +410,6 @@
   text-decoration: underline;
 }
 
-.forgot-password {
-  font-size: 13px;
-  color: #06b6d4;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s;
-}
-
-.forgot-password:hover {
-  color: #4f46e5;
-  text-decoration: underline;
-}
-
 .social-login-container {
   margin-top: 24px;
 }
@@ -488,30 +475,35 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-  .login-wrapper {
-    flex-direction: column;
-    max-width: 450px;
-  }
-
-  .login-left {
-    padding: 30px 24px;
-    border-right: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  }
-
-  .brand-title {
-    font-size: 32px;
-  }
-
-  .brand-desc {
+  .login-back-btn {
     display: none;
   }
 
-  .brand-stats {
+  .login-wrapper {
+    flex-direction: column;
+    margin: 0;
+    border-radius: 0;
+    min-height: 100vh;
+    width: 100%;
+  }
+
+  .login-left {
     display: none;
   }
 
   .login-right {
-    padding: 30px 24px;
+    padding: 40px 20px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 480px) {
+  .social-buttons {
+    flex-direction: column;
+  }
+  
+  .login-btn {
+    padding: 16px;
   }
 }

@@ -52,12 +52,13 @@ html:not(.dark) {
   left: 0;
   bottom: 0;
   width: 280px;
-  z-index: 999;
+  z-index: 1000;
   background: var(--sidebar-bg);
   border-right: 1px solid var(--border-white);
   padding: 40px 24px;
   display: flex;
   flex-direction: column;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .main-content {
@@ -81,9 +82,39 @@ html:not(.dark) {
 }
 
 @media (max-width: 1024px) {
-  .sidebar { transform: translateX(-100%); }
-  .main-content { margin-left: 0; }
-  .page-container { padding: 24px 20px; }
+  .sidebar { 
+    transform: translateX(-100%);
+    box-shadow: 20px 0 50px rgba(0,0,0,0.5);
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  .main-content { margin-left: 0 !important; }
+  .page-container { padding: 24px 16px; }
+  
+  .mobile-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 998;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  
+  .mobile-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+/* Responsive Typography */
+@media (max-width: 768px) {
+  h1 { font-size: 2.5rem !important; }
+  .text-7xl { font-size: 3.5rem !important; }
+  .text-5xl { font-size: 2.5rem !important; }
+  .text-4xl { font-size: 2rem !important; }
 }
 
 /* Animations */

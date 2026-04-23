@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 import { AppContext } from "../../context/AppContext";
@@ -19,14 +19,38 @@ export default function DashboardLayout() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 1024) {
+        setOpen(false);
+      } else {
+        setOpen(true);
+      }
+    };
+    handleResize(); 
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const { pathname } = useLocation();
+  useEffect(() => {
+    if (window.innerWidth <= 1024) {
+      setOpen(false);
+    }
+  }, [pathname]);
+
   return (
     <div className="min-h-screen text-slate-200 relative">
-      {/* Background Interactive Glow */}
       <div 
         className="fixed inset-0 pointer-events-none opacity-20 z-0"
         style={{
           background: `radial-gradient(1000px circle at ${mousePos.x}px ${mousePos.y}px, rgba(79, 70, 229, 0.1), transparent 40%)`
         }}
+      />
+      
+      <div 
+        className={`mobile-overlay ${open ? "active" : ""}`}
+        onClick={() => setOpen(false)}
       />
       
       <Sidebar open={open} setOpen={setOpen} />

@@ -62,29 +62,29 @@ export default function Kasir() {
   return (
     <div className="flex flex-col lg:flex-row gap-8 min-h-[calc(100vh-160px)]">
       {/* ═══════ LEFT: PRODUCTS ═══════ */}
-      <div className="flex-grow space-y-8 overflow-hidden">
+      <div className="flex-grow space-y-6 md:space-y-8 overflow-hidden">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
           <div className="space-y-1">
-            <h1 className="text-5xl font-black text-white tracking-tighter">Terminal Kasir</h1>
-            <p className="text-slate-500 font-medium">Pilih produk dan layani pelanggan dengan cepat.</p>
+            <h1 className="text-3xl md:text-5xl font-black text-white tracking-tighter">Terminal Kasir</h1>
+            <p className="text-sm md:text-base text-slate-500 font-medium">Pilih produk dan layani pelanggan dengan cepat.</p>
           </div>
           <div className="relative w-full md:w-80 group">
             <FaSearch className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-cyan-400 transition-colors" />
             <input 
               type="text" placeholder="Cari nama produk..." 
               value={search} onChange={e => setSearch(e.target.value)}
-              className="w-full bg-white/5 border border-white/5 rounded-2xl py-4 pl-14 pr-6 text-sm text-white focus:outline-none focus:border-indigo-500/40 transition-all" 
+              className="w-full bg-white/5 border border-white/5 rounded-2xl py-3 md:py-4 pl-14 pr-6 text-sm text-white focus:outline-none focus:border-indigo-500/40 transition-all" 
             />
           </div>
         </div>
 
         {/* CATEGORY FILTER */}
-        <div className="flex gap-3 overflow-x-auto no-scrollbar pb-2">
+        <div className="flex gap-2 md:gap-3 overflow-x-auto no-scrollbar pb-2">
           {["Semua", ...categories.map(c => c.name)].map(cat => (
             <button 
               key={cat}
               onClick={() => setActiveCat(cat)}
-              className={`px-8 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all ${activeCat === cat ? 'bg-indigo-600 text-white shadow-xl shadow-indigo-600/20' : 'bg-white/5 text-slate-500 hover:bg-white/10 hover:text-white'}`}
+              className={`px-6 md:px-8 py-2 md:py-3 rounded-xl md:rounded-2xl text-[9px] md:text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap ${activeCat === cat ? 'bg-indigo-600 text-white shadow-xl shadow-indigo-600/20' : 'bg-white/5 text-slate-500 hover:bg-white/10 hover:text-white'}`}
             >
               {cat}
             </button>
@@ -92,20 +92,20 @@ export default function Kasir() {
         </div>
 
         {/* PRODUCT GRID */}
-        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 pr-2">
+        <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 pr-2">
           {filtered.map(p => (
             <motion.div key={p.id} whileHover={{ y: -5 }} whileTap={{ scale: 0.95 }}>
-              <SpotlightCard className="p-8 cursor-pointer border-white/5 bg-white/[0.03] group relative overflow-hidden" onClick={() => updateCart(p, 1)}>
-                <div className="text-5xl mb-6 text-center group-hover:scale-110 transition-transform">{p.emoji}</div>
-                <div className="space-y-2">
-                  <span className="text-[9px] font-black text-indigo-400 uppercase tracking-[2px]">{p.category}</span>
-                  <h3 className="font-bold text-white text-base truncate">{p.name}</h3>
-                  <p className="text-cyan-400 font-black text-lg">{formatIDR(p.price)}</p>
+              <SpotlightCard className="p-4 md:p-8 cursor-pointer border-white/5 bg-white/[0.03] group relative overflow-hidden" onClick={() => updateCart(p, 1)}>
+                <div className="text-3xl md:text-5xl mb-4 md:mb-6 text-center group-hover:scale-110 transition-transform">{p.emoji}</div>
+                <div className="space-y-1 md:space-y-2">
+                  <span className="text-[8px] md:text-[9px] font-black text-indigo-400 uppercase tracking-[1px] md:tracking-[2px]">{p.category}</span>
+                  <h3 className="font-bold text-white text-sm md:text-base truncate">{p.name}</h3>
+                  <p className="text-cyan-400 font-black text-base md:text-lg">{formatIDR(p.price)}</p>
                 </div>
-                <div className="mt-6 flex justify-between items-center">
-                  <span className={`text-[10px] font-black uppercase tracking-widest ${p.stock < 10 ? 'text-rose-500' : 'text-slate-600'}`}>Stok: {p.stock}</span>
-                  <div className="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all shadow-lg shadow-indigo-600/30">
-                    <FaPlus size={12} />
+                <div className="mt-4 md:mt-6 flex justify-between items-center">
+                  <span className={`text-[8px] md:text-[10px] font-black uppercase tracking-widest ${p.stock < 10 ? 'text-rose-500' : 'text-slate-600'}`}>Stok: {p.stock}</span>
+                  <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-indigo-600 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all shadow-lg shadow-indigo-600/30">
+                    <FaPlus size={10} />
                   </div>
                 </div>
               </SpotlightCard>
@@ -116,13 +116,13 @@ export default function Kasir() {
 
       {/* ═══════ RIGHT: CART ═══════ */}
       <div className="w-full lg:w-[450px] flex flex-col gap-8">
-        <SpotlightCard className="p-10 flex flex-col h-full border-white/5 sticky top-24">
-          <div className="flex justify-between items-center mb-10">
-            <h2 className="text-2xl font-black text-white tracking-tight flex items-center gap-4">
-               <div className="w-10 h-10 rounded-xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center text-lg"><FaShoppingBag /></div>
+        <SpotlightCard className="p-6 md:p-10 flex flex-col h-full border-white/5 lg:sticky lg:top-24">
+          <div className="flex justify-between items-center mb-6 md:mb-10">
+            <h2 className="text-xl md:text-2xl font-black text-white tracking-tight flex items-center gap-3 md:gap-4">
+               <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center text-base md:text-lg"><FaShoppingBag /></div>
                Pesanan
             </h2>
-            <span className="text-[10px] font-black text-slate-500 bg-white/5 px-4 py-1.5 rounded-full border border-white/5 uppercase tracking-widest">{cart.length} Item</span>
+            <span className="text-[9px] md:text-[10px] font-black text-slate-500 bg-white/5 px-3 md:px-4 py-1 md:py-1.5 rounded-full border border-white/5 uppercase tracking-widest">{cart.length} Item</span>
           </div>
 
           <div className="flex-grow space-y-6 overflow-y-auto max-h-[400px] no-scrollbar pr-2 mb-10">
@@ -132,17 +132,17 @@ export default function Kasir() {
                   key={item.id} 
                   layout 
                   initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }}
-                  className="flex items-center gap-6 p-5 bg-white/[0.02] rounded-3xl border border-white/5 group"
+                  className="flex items-center gap-4 md:gap-6 p-4 md:p-5 bg-white/[0.02] rounded-2xl md:rounded-3xl border border-white/5 group"
                 >
-                  <div className="text-3xl grayscale group-hover:grayscale-0 transition-all">{item.emoji}</div>
-                  <div className="flex-grow space-y-1">
-                    <p className="text-sm font-black text-white leading-tight">{item.name}</p>
-                    <p className="text-xs text-indigo-400 font-bold">{formatIDR(item.price)}</p>
+                  <div className="text-2xl md:text-3xl grayscale group-hover:grayscale-0 transition-all">{item.emoji}</div>
+                  <div className="flex-grow space-y-0.5 md:space-y-1">
+                    <p className="text-xs md:text-sm font-black text-white leading-tight">{item.name}</p>
+                    <p className="text-[10px] md:text-xs text-indigo-400 font-bold">{formatIDR(item.price)}</p>
                   </div>
-                  <div className="flex items-center bg-slate-900 rounded-2xl p-1.5 border border-white/5">
-                    <button onClick={() => updateCart(item, -1)} className="w-8 h-8 flex items-center justify-center text-slate-500 hover:text-white transition-colors"><FaMinus size={10} /></button>
-                    <span className="px-4 text-sm font-black text-white tracking-tighter">{item.qty}</span>
-                    <button onClick={() => updateCart(item, 1)} className="w-8 h-8 flex items-center justify-center text-slate-500 hover:text-white transition-colors"><FaPlus size={10} /></button>
+                  <div className="flex items-center bg-slate-900 rounded-xl md:rounded-2xl p-1 md:p-1.5 border border-white/5">
+                    <button onClick={() => updateCart(item, -1)} className="w-7 h-7 md:w-8 md:h-8 flex items-center justify-center text-slate-500 hover:text-white transition-colors"><FaMinus size={8} /></button>
+                    <span className="px-2 md:px-4 text-xs md:text-sm font-black text-white tracking-tighter">{item.qty}</span>
+                    <button onClick={() => updateCart(item, 1)} className="w-7 h-7 md:w-8 md:h-8 flex items-center justify-center text-slate-500 hover:text-white transition-colors"><FaPlus size={8} /></button>
                   </div>
                 </motion.div>
               ))}
@@ -157,8 +157,8 @@ export default function Kasir() {
 
           <div className="space-y-8 pt-8 border-t border-white/5">
             <div className="flex justify-between items-end">
-              <span className="text-[10px] font-black text-slate-600 uppercase tracking-[4px]">Subtotal</span>
-              <span className="text-4xl font-black text-cyan-400 tracking-tighter">{formatIDR(total)}</span>
+              <span className="text-[9px] md:text-[10px] font-black text-slate-600 uppercase tracking-[3px] md:tracking-[4px]">Subtotal</span>
+              <span className="text-3xl md:text-4xl font-black text-cyan-400 tracking-tighter">{formatIDR(total)}</span>
             </div>
 
             <div className="space-y-4">
@@ -170,7 +170,7 @@ export default function Kasir() {
                   value={receivedAmount || ""} 
                   onChange={e => setReceivedAmount(Number(e.target.value))}
                   placeholder="0"
-                  className="w-full bg-slate-900 border border-white/5 rounded-3xl py-6 pl-14 pr-8 text-white font-black text-2xl focus:border-emerald-500 outline-none transition-all placeholder:text-slate-800"
+                  className="w-full bg-slate-900 border border-white/5 rounded-2xl md:rounded-3xl py-4 md:py-6 pl-14 pr-8 text-white font-black text-xl md:text-2xl focus:border-emerald-500 outline-none transition-all placeholder:text-slate-800"
                 />
               </div>
               {receivedAmount >= total && total > 0 && (

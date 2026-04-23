@@ -51,20 +51,6 @@ const Produk = () => {
 
   return (
     <div className="animate-fade-in p-4 lg:p-8 space-y-8">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-        <div>
-          <h1 className="text-4xl font-black text-white mb-2">Manajemen Produk</h1>
-          <p className="text-slate-400">Total {products.length} item terdaftar dalam inventaris Anda.</p>
-        </div>
-        <div className="flex gap-3 w-full md:w-auto">
-          <button onClick={() => showToast("Mengekspor data...", "info")} className="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 bg-white/5 border border-white/10 rounded-2xl text-slate-300 font-bold hover:bg-white/10 transition-all">
-            <FaFileExport /> Export
-          </button>
-          <button onClick={handleOpenAdd} className="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 bg-indigo-600 rounded-2xl text-white font-bold hover:bg-indigo-500 shadow-lg shadow-indigo-500/20 transition-all">
-            <FaPlus /> Tambah Produk
-          </button>
-        </div>
-      </div>
 
       <SpotlightCard className="p-4 flex flex-col md:flex-row gap-4 items-center">
         <div className="relative flex-grow w-full">
